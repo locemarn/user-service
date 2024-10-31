@@ -4,10 +4,10 @@ FROM node:${NODE_VERION}-alpine
 
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json .
 
 ARG NODE_ENV
-RUN npm install
+RUN npm ci
 RUN npm install -g prisma
 
 COPY prisma ./prisma/
@@ -16,9 +16,9 @@ COPY . ./
 
 RUN npm run build
 RUN npx prisma generate
-# RUN npx prisma migrate dev
+RUN npm run build
 
 ENV PORT=8000
 EXPOSE ${PORT}
 # CMD [ "npm", "run", "dev" ]
-CMD ["sh", "-c", " npm run prisma:push && npm run dev"]
+CMD ["sh", "-c", " npm run prisma:push && npm run start"]

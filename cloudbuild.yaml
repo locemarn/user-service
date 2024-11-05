@@ -1,0 +1,28 @@
+steps:
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['build', '-t', 'gcr.io/$PROJECT_ID/my-app', '.']
+
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['push', 'gcr.io/$PROJECT_ID/my-app']
+
+  # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  #   entrypoint: 'bash'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       gcloud run deploy user-service \
+  #         --image gcr.io/protean-triode-440018-n4/user-service \
+  #         --platform managed \
+  #         --region us-central1 \
+  #         --allow-unauthenticated
+    - name: 'node'
+      entrypoint: 'npm'
+      args: ['install']
+    - name: 'node'
+      entrypoint: 'npm'
+      args: ['run', 'build']
+    - name: 'node'
+      entrypoint: 'npm'
+      args: ['run', 'start']
+
+      

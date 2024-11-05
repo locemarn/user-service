@@ -13,7 +13,7 @@ services:
       - user_db_server
 
   user_db_server:
-    image: 'postgres:14.0'
+    image: 'postgres:16.0'
     ports:
       - '5432:5432'
     deploy:

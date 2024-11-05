@@ -4,7 +4,7 @@ FROM node:${NODE_VERION}-alpine
 
 WORKDIR /app
 
-COPY package*.json .
+COPY package*.json ./
 
 ARG NODE_ENV
 RUN npm ci
@@ -14,11 +14,11 @@ COPY prisma ./prisma/
 
 COPY . ./
 
-RUN npm run build
+RUN npm run gcloud:run
 RUN npx prisma generate
 RUN npm run build
 
 ENV PORT=8000
 EXPOSE ${PORT}
 # CMD [ "npm", "run", "dev" ]
-CMD ["sh", "-c", " npm run prisma:push && npm run start"]
+CMD ["sh", "-c", " npm run gcloud:run && npm run start"]

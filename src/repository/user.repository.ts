@@ -72,14 +72,13 @@ export class UserRepository implements UserRepositoryInterface {
     }
   }
   async find(limit: number, offset: number): Promise<UserResponse[]> {
-    return []
-    // return await this._prisma.user.findMany({
-    //   skip: offset,
-    //   take: limit,
-    //   orderBy: {
-    //     id: 'desc',
-    //   },
-    // })
+    return await this._prisma.user.findMany({
+      skip: offset,
+      take: limit,
+      orderBy: {
+        id: 'desc',
+      },
+    })
   }
   async findOne(id: number): Promise<UserResponse> {
     try {

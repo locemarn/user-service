@@ -3,7 +3,7 @@ const { exec } = require('child_process')
 
 const instanceConnectionName = process.env.INSTANCE_CONNECTION_NAME
 
-const command = `./cloud_sql_proxy ${instanceConnectionName}`
+const command = `./cloud-sql-proxy ${instanceConnectionName}`
 
 exec(command, (error, stdout, stderr) => {
   if (error) {

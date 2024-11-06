@@ -6,9 +6,9 @@ services:
     ports:
       - '8000:8000'
     container_name: user-service
-    env_file: .env
-    # environment:
-    #   DATABASE_URL: postgresql://user_db:user_db_password@postgres:5432/user_service?schema=public
+    # env_file: .env
+    environment:
+      DATABASE_URL: postgresql://admin:user-service1234@postgres:5432/user-service?socket=/cloudsql/protean-triode-440018-n4:southamerica-east1:us3r-s3rvice
     depends_on:
       - user_db_server
 
@@ -20,12 +20,12 @@ services:
       mode: replicated
       replicas: 1
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: user-service1234
+      POSTGRES_DB: user-service
     volumes:
       - ./db-data/user_db_server/:/var/lib/postgressql/data
     container_name: postgres
-#     restart: always
-# volumes:
-#   db-data:
+    restart: always
+volumes:
+  db-data:

@@ -14,11 +14,13 @@ COPY prisma ./prisma/
 
 COPY . ./
 
-RUN npm run gcloud:run
+# RUN npm run gcloud:run
 RUN npx prisma generate
 RUN npm run build
 
 ENV PORT=8000
 EXPOSE ${PORT}
 # CMD [ "npm", "run", "dev" ]
-CMD ["sh", "-c", " npm run gcloud:run && npm run start"]
+# CMD ["sh", "-c", " npm run gcloud:run && npm run start"]
+CMD ["sh", "-c", " npm run start"]
+# CMD ["npm", "run", "dev"]

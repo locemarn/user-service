@@ -3,6 +3,7 @@ import { User, UserResponse } from '../models/user.model'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { UserWPassword } from '../types/user.types'
 import prisma from '../libs/prisma/mock/client'
+import { userRepositoryErrorFilter } from '../utils/fixtures/errors/repository.errors'
 
 export class UserRepository implements UserRepositoryInterface {
   _prisma: PrismaClient
@@ -72,13 +73,29 @@ export class UserRepository implements UserRepositoryInterface {
     }
   }
   async find(limit: number, offset: number): Promise<UserResponse[]> {
-    return await this._prisma.user.findMany({
-      skip: offset,
-      take: limit,
-      orderBy: {
-        id: 'desc',
-      },
-    })
+    let res
+    try {
+      res = await this._prisma.user.findMany({
+        skip: offset,
+        take: limit,
+        orderBy: {
+          id: 'desc',
+        },
+      })
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        console.error('Known request error:', error.message)
+        // Handle specific error codes
+        const errorMessage = userRepositoryErrorFilter(error)
+        console.error('Prisma error message', errorMessage)
+      } else {
+        console.error('An unknown error occurred:', error)
+        throw error
+      }
+    } finally {
+      await prisma.$disconnect()
+      return res as unknown as UserResponse[]
+    }
   }
   async findOne(id: number): Promise<UserResponse> {
     try {

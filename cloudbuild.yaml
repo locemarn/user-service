@@ -10,7 +10,7 @@ steps:
     - deploy
     - service-user
     - --image
-    - gcr.io/service-user-441015/service-user
+    - gcr.io/$PROJECT_ID/service-user
     - --platform
     - managed
     - --region

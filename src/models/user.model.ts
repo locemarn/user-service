@@ -16,7 +16,7 @@ export class UserResponse {
     public readonly email: string,
     public readonly role: string,
     public readonly id: number,
-    public readonly createdAt: Date,
-    public readonly updatedAt: Date
+    public readonly created_at: Date | null,
+    public readonly updated_at: Date | null
   ) {}
 }

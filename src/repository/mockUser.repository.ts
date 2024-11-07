@@ -19,8 +19,8 @@ export class MockUserRepository implements UserRepositoryInterface {
     const mockUser: UserResponse = {
       id: 1,
       ...data,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     } as UserResponse
     return Promise.resolve(mockUser)
   }
@@ -32,8 +32,8 @@ export class MockUserRepository implements UserRepositoryInterface {
         username: data.username,
         email: data.email,
         role: data.role,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       })
       return Promise.resolve(user as unknown as UserResponse)
     } catch (error: any) {
@@ -54,8 +54,8 @@ export class MockUserRepository implements UserRepositoryInterface {
       userList.push({
         ...mockUser,
         id: i + 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       })
     }
 

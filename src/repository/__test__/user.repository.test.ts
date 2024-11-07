@@ -17,8 +17,8 @@ describe('Users repository', () => {
   const RESPONSE_BODY = {
     ...REQUEST_BODY,
     id: 1,
-    createdAt: new Date(MOCK_DATE),
-    updatedAt: new Date(MOCK_DATE),
+    created_at: new Date(MOCK_DATE),
+    updated_at: new Date(MOCK_DATE),
   }
 
   beforeEach(() => {
@@ -40,8 +40,8 @@ describe('Users repository', () => {
         email: expect.any(String),
         password: expect.any(String),
         role: expect.any(String),
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date),
       })
 
       // console.log('sut', sut)
@@ -69,8 +69,8 @@ describe('Users repository', () => {
         email: expect.any(String),
         password: expect.any(String),
         role: expect.any(String),
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date),
       })
 
       // console.log('sut', sut)
@@ -98,8 +98,8 @@ describe('Users repository', () => {
         email: expect.any(String),
         password: expect.any(String),
         role: expect.any(String),
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date),
       })
 
       // console.log('sut', sut)
@@ -128,8 +128,8 @@ describe('Users repository', () => {
         email: expect.any(String),
         password: expect.any(String),
         role: expect.any(String),
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date),
       })
 
       // console.log('sut', sut)
@@ -157,8 +157,8 @@ describe('Users repository', () => {
         email: expect.any(String),
         password: expect.any(String),
         role: expect.any(String),
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date),
       })
 
       // console.log('sut', sut)
@@ -186,8 +186,8 @@ describe('Users repository', () => {
         email: expect.any(String),
         password: expect.any(String),
         role: expect.any(String),
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date),
       })
 
       // console.log('sut', sut)

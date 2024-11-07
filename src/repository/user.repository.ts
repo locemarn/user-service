@@ -14,18 +14,7 @@ export class UserRepository implements UserRepositoryInterface {
 
   async create(data: User): Promise<UserResponse> {
     try {
-      return await this._prisma.user.create({
-        data,
-        select: {
-          username: true,
-          email: true,
-          id: true,
-          role: true,
-          createdAt: true,
-          updatedAt: true,
-          password: false,
-        },
-      })
+      return await this._prisma.user.create({ data })
     } catch (e) {
       // console.error('Error when create an user')
       // if (e instanceof Prisma.PrismaClientKnownRequestError) {
@@ -106,8 +95,8 @@ export class UserRepository implements UserRepositoryInterface {
           email: true,
           id: true,
           role: true,
-          createdAt: true,
-          updatedAt: true,
+          created_at: true,
+          updated_at: true,
           password: false,
         },
       })
@@ -130,8 +119,8 @@ export class UserRepository implements UserRepositoryInterface {
           email: true,
           id: true,
           role: true,
-          createdAt: true,
-          updatedAt: true,
+          created_at: true,
+          updated_at: true,
           password: true,
         },
       })

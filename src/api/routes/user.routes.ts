@@ -25,9 +25,11 @@ router.post(
       .then((data) => res.status(201).json(data))
       .catch((error) => {
         const err = error as Error
-        return res
-          .status(400)
-          .json({ message: err.message, stack: err.stack, name: err.name })
+        return res.status(500).json({
+          message: err.message,
+          name: err.name,
+          statusCode: error.statusCode,
+        })
       })
   }
 )
@@ -43,14 +45,12 @@ router.patch('/:id', (req: Request, res: Response) => {
     .catch((error) => {
       // console.log('route error', error)
       const err = error as Error
-      return res
-        .status(500)
-        .json({ message: err.message, stack: err.stack, name: err.name })
+      return res.status(500).json({ message: err.message, name: err.name })
     })
 })
 
 router.get('/', (req: Request, res: Response) => {
-  const limit = Number(req.query.limit) || 10
+  const limit = Number(req.query.limit)
   const offset = Number(req.query.offset)
   userService
     .findAllUser(limit, offset)
@@ -60,9 +60,11 @@ router.get('/', (req: Request, res: Response) => {
     .catch((error) => {
       // console.log('route error', error)
       const err = error as Error
-      return res
-        .status(500)
-        .json({ message: err.message, stack: err.stack, name: err.name })
+      return res.status(500).json({
+        message: err.message,
+        name: err.name,
+        statusCode: error.statusCode,
+      })
     })
 })
 
@@ -76,9 +78,7 @@ router.delete('/:id', authMiddleware, (req: Request, res: Response) => {
     .catch((error) => {
       // console.log('route error', error)
       const err = error as Error
-      return res
-        .status(500)
-        .json({ message: err.message, stack: err.stack, name: err.name })
+      return res.status(500).json({ message: err.message, name: err.name })
     })
 })
 
@@ -92,9 +92,7 @@ router.get('/:id', (req: Request, res: Response) => {
     .catch((error) => {
       // console.log('route error', error)
       const err = error as Error
-      return res
-        .status(500)
-        .json({ message: err.message, stack: err.stack, name: err.name })
+      return res.status(500).json({ message: err.message, name: err.name })
     })
 })
 

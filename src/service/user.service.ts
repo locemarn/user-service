@@ -12,18 +12,14 @@ export class UserService {
 
   async createUser(input: User) {
     const data = await this._repository.create(input)
-    if (!data.id) {
-      throw new Error('unable to create an user.')
-    }
     return data
   }
 
   async updateUser(id: number, input: User) {
-    const data = await this._repository.update(id, input)
-    if (!data.id) {
-      throw new Error('unable to update an user.')
-    }
-    return data
+    return await this._repository.update(id, {
+      ...input,
+      updated_at: new Date(),
+    })
   }
 
   async deleteUser(id: number) {

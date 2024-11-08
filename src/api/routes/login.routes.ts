@@ -30,13 +30,6 @@ router.post('/', async (req: Request, res: Response) => {
         .status(400)
         .json({ message: err.message, stack: err.stack, name: err.name })
     })
-
-  // console.log('token', token)
-  // res.status(200).json({
-  //   user,
-  //   error: false,
-  //   token,
-  // })
 })
 
 export default router

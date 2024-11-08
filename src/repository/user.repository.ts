@@ -12,57 +12,37 @@ export class UserRepository implements UserRepositoryInterface {
     this._prisma = prisma
   }
 
-  async create(data: User): Promise<UserResponse> {
+  async create(data: User): Promise<UserResponse | void> {
     try {
       return await this._prisma.user.create({ data })
-    } catch (e) {
-      // console.error('Error when create an user')
-      // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      //   if (e.code === 'P2002') {
-      //     console.error(
-      //       'There is a unique constraint violation, a new user cannot be created with this email'
-      //     )
-      //   }
-      // }
-      throw e
+    } catch (error) {
+      userRepositoryErrorFilter(error)
+      throw error
     }
   }
-  async update(id: number, data: User): Promise<UserResponse> {
+  async update(id: number, data: User): Promise<UserResponse | void> {
     try {
       return await this._prisma.user.update({
         omit: { password: true },
         where: { id },
         data,
       })
-    } catch (e) {
-      // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      //   if (e.code === 'P2002') {
-      //     console.error(
-      //       'There is a unique constraint violation, a new user cannot be created with this email'
-      //     )
-      //   }
-      // }
-      throw e
+    } catch (error) {
+      userRepositoryErrorFilter(error)
     }
   }
 
-  async delete(id: number): Promise<object> {
+  async delete(id: number): Promise<UserResponse | void> {
     try {
       const user = await this._prisma.user.delete({
         where: { id },
       })
       return user
-    } catch (e) {
-      // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      //   if (e.code === 'P2025') {
-      //     console.error('user not found.')
-      //   }
-      // }
-      throw e
+    } catch (error) {
+      userRepositoryErrorFilter(error)
     }
   }
-  async find(limit: number, offset: number): Promise<UserResponse[]> {
-    let res
+  async find(limit: number, offset: number): Promise<UserResponse[] | void> {
     try {
       return await this._prisma.user.findMany({
         skip: offset,
@@ -72,20 +52,10 @@ export class UserRepository implements UserRepositoryInterface {
         },
       })
     } catch (error) {
-      await prisma.$disconnect()
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        console.error('Known request error:', error.message)
-        // Handle specific error codes
-        const errorMessage = userRepositoryErrorFilter(error)
-        console.error('Prisma error message', errorMessage)
-        throw error
-      } else {
-        // console.error('An unknown error occurred:', error)
-        throw error
-      }
+      userRepositoryErrorFilter(error)
     }
   }
-  async findOne(id: number): Promise<UserResponse> {
+  async findOne(id: number): Promise<UserResponse | void> {
     try {
       return await this._prisma.user.findUniqueOrThrow({
         where: { id },
@@ -99,17 +69,12 @@ export class UserRepository implements UserRepositoryInterface {
           password: false,
         },
       })
-    } catch (e) {
-      // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      //   if (e.code === 'P2025') {
-      //     console.error('user not found.')
-      //   }
-      // }
-      throw e
+    } catch (error) {
+      userRepositoryErrorFilter(error)
     }
   }
 
-  async findByEmail(email: string): Promise<UserWPassword> {
+  async findByEmail(email: string): Promise<UserWPassword | void> {
     try {
       return await this._prisma.user.findUniqueOrThrow({
         where: { email },
@@ -123,13 +88,8 @@ export class UserRepository implements UserRepositoryInterface {
           password: true,
         },
       })
-    } catch (e) {
-      // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      //   if (e.code === 'P2025') {
-      //     console.error('user not found.')
-      //   }
-      // }
-      throw e
+    } catch (error) {
+      userRepositoryErrorFilter(error)
     }
   }
 }

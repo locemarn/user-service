@@ -4,6 +4,10 @@ steps:
     entrypoint: 'npm'
     args: ['install']
 
+  # Step 2: Run unit tests
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'test']  # Adjust this command based on your test script
+
   - name: 'gcr.io/google-appengine/gcloud'
     args:
     - run

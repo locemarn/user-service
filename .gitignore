@@ -3,5 +3,5 @@ node_modules
 coverage
 dist
 db-data
-cloud_sql_proxy
+cloud-sql-proxy
 credentials.json

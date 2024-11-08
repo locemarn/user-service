@@ -116,7 +116,7 @@ describe('Users repository', () => {
   })
 
   describe('FIND', () => {
-    test('should find a new user', async () => {
+    test('should find a list of user', async () => {
       prismaMock.user.findMany.mockResolvedValue([RESPONSE_BODY])
 
       const sut = await repository.find(10, 0)
@@ -135,12 +135,16 @@ describe('Users repository', () => {
       // console.log('sut', sut)
     })
 
-    test('should throw an error when find a new user', async () => {
+    test('should throw an error when find a list of user', async () => {
       prismaMock.user.findMany.mockImplementation(() => {
-        throw new Error('Error to find an user.')
+        throw new Error('Error to find a list of user.')
       })
+
+      // const sut = await repository.find(10, 0)
+
+      // console.log('sut', sut)
       await expect(repository.find(10, 0)).rejects.toThrow(
-        'Error to find an user.'
+        'Error to find a list of user.'
       )
     })
   })

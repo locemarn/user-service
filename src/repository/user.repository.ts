@@ -64,7 +64,7 @@ export class UserRepository implements UserRepositoryInterface {
   async find(limit: number, offset: number): Promise<UserResponse[]> {
     let res
     try {
-      res = await this._prisma.user.findMany({
+      return await this._prisma.user.findMany({
         skip: offset,
         take: limit,
         orderBy: {
@@ -72,18 +72,17 @@ export class UserRepository implements UserRepositoryInterface {
         },
       })
     } catch (error) {
+      await prisma.$disconnect()
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         console.error('Known request error:', error.message)
         // Handle specific error codes
         const errorMessage = userRepositoryErrorFilter(error)
         console.error('Prisma error message', errorMessage)
+        throw error
       } else {
-        console.error('An unknown error occurred:', error)
+        // console.error('An unknown error occurred:', error)
         throw error
       }
-    } finally {
-      await prisma.$disconnect()
-      return res as unknown as UserResponse[]
     }
   }
   async findOne(id: number): Promise<UserResponse> {

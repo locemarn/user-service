@@ -46,7 +46,7 @@ export class UserService {
       const data = await this._repository.findByEmail(email)
       return data
     } catch (error) {
-      console.error('error', error)
+      // console.error('error', error)
       // throw new Error('user not found.')
     }
   }

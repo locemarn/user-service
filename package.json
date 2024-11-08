@@ -15,7 +15,7 @@
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:push": "npx prisma db push",
     "prisma:studio": "npx prisma studio",
-    "gcloud:run": "node src/libs/prisma/run-proxy.js"
+    "gcloud:run": "node ./run-proxy.js"
   },
   "keywords": [],
   "author": "",

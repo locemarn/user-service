@@ -16,11 +16,4 @@ const prisma = new PrismaClient({
   },
 } as any)
 
-// const prisma: any = new PrismaClient({
-//   omit: {
-//     user: {
-//       password: true,
-//     },
-//   },
-// })
 export default prisma

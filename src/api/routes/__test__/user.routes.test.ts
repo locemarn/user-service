@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
 import request from 'supertest'
 import { faker } from '@faker-js/faker'
-import { UserResponse } from '../../../models/user.model'
+import { UserResponse } from '../../../@core/domain/user.entity'
 import { UserFactory } from '../../../utils/fixtures'
 import { authMiddleware } from '../../middleware/validators/auth'
 import userRoutes, { userService } from '../user.routes'
@@ -62,7 +62,7 @@ describe('User routes', () => {
         .set('Accept', 'application/json')
 
       // console.log('sut', sut.body)
-      expect(sut.status).toBe(400)
+      expect(sut.status).toBe(500)
       expect(sut.body.message).toEqual('unable to create an user.')
     })
   })
@@ -92,7 +92,7 @@ describe('User routes', () => {
       const requestBody = mockRequest()
       const user = UserFactory.build()
       // console.log('user.id', user.id)
-      const userId: number = user.id
+      const userId = user?.id
 
       jest
         .spyOn(userService, 'updateUser')
@@ -135,7 +135,7 @@ describe('User routes', () => {
       authMock.mockImplementation(
         async (req: Request, res: Response, next: NextFunction) => next()
       )
-      const userId: number = user.id
+      const userId = user.id
       jest
         .spyOn(userService, 'deleteUser')
         .mockImplementationOnce(async () =>
@@ -170,7 +170,7 @@ describe('User routes', () => {
 
     test('should return an internal error when find an user', async () => {
       const user = UserFactory.build()
-      const userId: number = user.id
+      const userId = user.id
       jest
         .spyOn(userService, 'findUser')
         .mockImplementationOnce(async () =>

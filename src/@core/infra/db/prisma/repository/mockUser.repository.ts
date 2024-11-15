@@ -1,8 +1,7 @@
-import { UserRepositoryInterface } from '../interface/UserRepository.interface'
-import { User, UserResponse } from '../models/user.model'
-
 import { faker } from '@faker-js/faker'
-import { USERROLES, UserWPassword } from '../types/user.types'
+import { User, UserResponse } from '../../../../domain/user.entity'
+import { USERROLES, UserWPassword } from '../../../../../types/user.types'
+import { UserRepositoryInterface } from '../../../../domain/repository/UserRepository.interface'
 
 export const mockUser: User = {
   username: faker.internet.userName(),
@@ -42,8 +41,13 @@ export class MockUserRepository implements UserRepositoryInterface {
     }
   }
 
-  async delete(id: number): Promise<object> {
-    return Promise.resolve({ id })
+  async delete(id: number): Promise<UserResponse | void> {
+    return Promise.resolve({
+      id,
+      ...mockUser,
+      created_at: new Date(),
+      updated_at: new Date(),
+    })
   }
 
   async find(limit: number, offset: number): Promise<UserResponse[]> {

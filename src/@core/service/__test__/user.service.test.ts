@@ -1,10 +1,10 @@
-import { UserRepositoryInterface } from '../../interface/UserRepository.interface'
-import { User } from '../../models/user.model'
+import { USERROLES } from '../../../types/user.types'
+import { UserRepositoryInterface } from '../../domain/repository/UserRepository.interface'
+import { User } from '../../domain/user.entity'
 import {
   mockUser,
   MockUserRepository,
-} from '../../repository/mockUser.repository'
-import { USERROLES } from '../../types/user.types'
+} from '../../infra/db/prisma/repository/mockUser.repository'
 import { UserService } from '../user.service'
 
 describe('User Service', () => {
@@ -72,7 +72,7 @@ describe('User Service', () => {
     test('should update an email user', async () => {
       const service = new UserService(repository)
       const user = await service.createUser(mockUser)
-      const id = user.id || 0
+      const id = user?.id || 0
       const updateUser: User = {
         ...mockUser,
         email: 'updateduser@email.com',
@@ -84,7 +84,7 @@ describe('User Service', () => {
     test('should update an username user', async () => {
       const service = new UserService(repository)
       const user = await service.createUser(mockUser)
-      const id = user.id || 0
+      const id = user?.id || 0
       const updateUser: User = {
         ...mockUser,
         username: 'updateduser',

@@ -1,11 +1,11 @@
 import express, { Request, Response } from 'express'
-import { UserService } from '../../service/user.service'
-import { UserRepository } from '../../repository/user.repository'
-import { User } from '../../models/user.model'
+import { User } from '../../@core/domain/user.entity'
 import { createUserSchema } from '../middleware/validators/create-user.validator'
 import { validateRequest } from '../middleware/validators/validator'
 import { encryptHash } from '../auth'
 import { authMiddleware } from '../middleware/validators/auth'
+import { UserRepository } from '../../@core/infra/db/prisma/repository/user.repository'
+import { UserService } from '../../@core/service/user.service'
 
 const router = express.Router()
 

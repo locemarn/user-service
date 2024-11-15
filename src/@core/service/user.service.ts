@@ -1,7 +1,7 @@
-import { comparePasswords, generateToken } from '../api/auth'
-import { UserRepositoryInterface } from '../interface/UserRepository.interface'
-import { User } from '../models/user.model'
-import { UserWPassword } from '../types/user.types'
+import { comparePasswords, generateToken } from '../../api/auth'
+import { UserRepositoryInterface } from '../domain/repository/UserRepository.interface'
+import { User } from '../domain/user.entity'
+import { UserWPassword } from '../../types/user.types'
 
 export class UserService {
   private _repository: UserRepositoryInterface
@@ -15,19 +15,19 @@ export class UserService {
     return data
   }
 
-  async updateUser(id: number, input: User) {
+  async updateUser(id: number | string, input: User) {
     return await this._repository.update(id, {
       ...input,
       updated_at: new Date(),
     })
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: number | string) {
     const data = await this._repository.delete(id)
     return data
   }
 
-  async findUser(id: number) {
+  async findUser(id: number | string) {
     const data = await this._repository.findOne(id)
     return data
   }

@@ -1,10 +1,6 @@
 import express, { Request, Response } from 'express'
-import { UserService } from '../../service/user.service'
-import { UserRepository } from '../../repository/user.repository'
-import { User, UserResponse } from '../../models/user.model'
-import { createUserSchema } from '../middleware/validators/create-user.validator'
-import { validateRequest } from '../middleware/validators/validator'
-import { comparePasswords, encryptHash, generateToken } from '../auth'
+import { UserRepository } from '../../@core/infra/db/prisma/repository/user.repository'
+import { UserService } from '../../@core/service/user.service'
 
 const router = express.Router()
 

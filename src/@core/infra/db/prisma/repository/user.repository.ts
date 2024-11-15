@@ -1,9 +1,9 @@
-import { UserRepositoryInterface } from '../interface/UserRepository.interface'
-import { User, UserResponse } from '../models/user.model'
-import { Prisma, PrismaClient } from '@prisma/client'
-import { UserWPassword } from '../types/user.types'
-import prisma from '../libs/prisma/mock/client'
-import { userRepositoryErrorFilter } from '../utils/fixtures/errors/repository.errors'
+import { PrismaClient } from '@prisma/client'
+import { UserWPassword } from '../../../../../types/user.types'
+import { userRepositoryErrorFilter } from '../../../../../utils/fixtures/errors/repository.errors'
+import { UserRepositoryInterface } from '../../../../domain/repository/UserRepository.interface'
+import { User, UserResponse } from '../../../../domain/user.entity'
+import prisma from '../client'
 
 export class UserRepository implements UserRepositoryInterface {
   _prisma: PrismaClient

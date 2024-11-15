@@ -1,5 +1,5 @@
 import { Factory } from 'rosie'
-import { UserResponse } from '../../models/user.model'
+import { UserResponse } from '../../@core/domain/user.entity'
 import { faker } from '@faker-js/faker'
 
 export const UserFactory = new Factory<UserResponse>()

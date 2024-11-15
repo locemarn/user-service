@@ -1,7 +1,7 @@
-import { UserRepositoryInterface } from '../../interface/UserRepository.interface'
-import { prismaMock } from '../../libs/prisma/mock/singleton'
+import { USERROLES } from '../../../../../../types/user.types'
+import { UserRepositoryInterface } from '../../../../../domain/repository/UserRepository.interface'
+import { prismaMock } from '../../singleton'
 import { UserRepository } from '../user.repository'
-import { USERROLES } from '../../types/user.types'
 
 describe('Users repository', () => {
   let repository: UserRepositoryInterface
@@ -49,10 +49,10 @@ describe('Users repository', () => {
 
     test('should throw an error when create a new user', async () => {
       prismaMock.user.create.mockImplementation(() => {
-        throw new Error('Error to create an user.')
+        throw new Error('An unexpected error occurred:')
       })
       await expect(repository.create({} as unknown as any)).rejects.toThrow(
-        'Error to create an user.'
+        'An unexpected error occurred:'
       )
     })
   })
@@ -78,11 +78,11 @@ describe('Users repository', () => {
 
     test('should throw an error when update a new user', async () => {
       prismaMock.user.update.mockImplementation(() => {
-        throw new Error('Error to update an user.')
+        throw new Error('An unexpected error occurred:')
       })
       await expect(
         repository.update(USER_ID, {} as unknown as any)
-      ).rejects.toThrow('Error to update an user.')
+      ).rejects.toThrow('An unexpected error occurred:')
     })
   })
 
@@ -107,10 +107,10 @@ describe('Users repository', () => {
 
     test('should throw an error when delete a new user', async () => {
       prismaMock.user.delete.mockImplementation(() => {
-        throw new Error('Error to delete an user.')
+        throw new Error('An unexpected error occurred:')
       })
       await expect(repository.delete(USER_ID)).rejects.toThrow(
-        'Error to delete an user.'
+        'An unexpected error occurred:'
       )
     })
   })
@@ -122,7 +122,7 @@ describe('Users repository', () => {
       const sut = await repository.find(10, 0)
 
       expect(sut).toHaveLength(1)
-      expect(sut[0]).toMatchObject({
+      expect(sut && sut[0]).toMatchObject({
         id: expect.any(Number),
         username: expect.any(String),
         email: expect.any(String),
@@ -131,20 +131,14 @@ describe('Users repository', () => {
         created_at: expect.any(Date),
         updated_at: expect.any(Date),
       })
-
-      // console.log('sut', sut)
     })
 
     test('should throw an error when find a list of user', async () => {
       prismaMock.user.findMany.mockImplementation(() => {
-        throw new Error('Error to find a list of user.')
+        throw new Error('An unexpected error occurred:')
       })
-
-      // const sut = await repository.find(10, 0)
-
-      // console.log('sut', sut)
       await expect(repository.find(10, 0)).rejects.toThrow(
-        'Error to find a list of user.'
+        'An unexpected error occurred:'
       )
     })
   })
@@ -170,10 +164,10 @@ describe('Users repository', () => {
 
     test('should throw an error when findOne a new user', async () => {
       prismaMock.user.findUniqueOrThrow.mockImplementation(() => {
-        throw new Error('Error to find one an user.')
+        throw new Error('An unexpected error occurred:')
       })
       await expect(repository.findOne(USER_ID)).rejects.toThrow(
-        'Error to find one an user.'
+        'An unexpected error occurred:'
       )
     })
   })
@@ -199,10 +193,10 @@ describe('Users repository', () => {
 
     test('should throw an error when find an user by email', async () => {
       prismaMock.user.findUniqueOrThrow.mockImplementation(() => {
-        throw new Error('Error to find an user by email.')
+        throw new Error('An unexpected error occurred:')
       })
       await expect(repository.findByEmail(REQUEST_BODY.email)).rejects.toThrow(
-        'Error to find an user by email.'
+        'An unexpected error occurred:'
       )
     })
   })

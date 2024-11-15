@@ -9,7 +9,12 @@ export const StartServer = async () => {
   expressApp.listen(PORT, () => console.info(`Server running on port: ${PORT}`))
 
   process.on('uncaughtException', async (err) => {
-    console.error(err)
+    console.error('uncaughtException', err)
+    process.exit(1)
+  })
+
+  process.on('unhandledRejection', async (err) => {
+    console.error('unhandledRejection', err)
     process.exit(1)
   })
 }

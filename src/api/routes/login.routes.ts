@@ -22,9 +22,7 @@ router.post('/', async (req: Request, res: Response) => {
     )
     .catch((error) => {
       const err = error as Error
-      return res
-        .status(400)
-        .json({ message: err.message, stack: err.stack, name: err.name })
+      return res.status(400).json({ message: err.message, name: err.name })
     })
 })
 

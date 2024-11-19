@@ -1,9 +1,10 @@
 import expressApp from './expressApp'
 import dotenv from 'dotenv'
+import config from './configs'
 
 dotenv.config()
 
-const PORT = process.env.PORT ?? 8000
+const PORT = config.app.port
 
 export const StartServer = async () => {
   expressApp.listen(PORT, () => console.info(`Server running on port: ${PORT}`))

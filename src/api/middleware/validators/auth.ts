@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
+import config from '../../../configs'
 
 export async function authMiddleware(
   req: Request,
@@ -12,7 +13,7 @@ export async function authMiddleware(
       throw new Error('Unauthorized')
     }
     const token = authorization.split(' ')[1]
-    jwt.verify(token, process.env.JWT_PASS ?? '', (err) => {
+    jwt.verify(token, config.jwt.secret, (err) => {
       if (err) {
         throw new Error('Unauthorized')
       }

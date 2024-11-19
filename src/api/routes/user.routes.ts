@@ -6,6 +6,7 @@ import { encryptHash } from '../auth'
 import { authMiddleware } from '../middleware/validators/auth'
 import { UserRepository } from '../../@core/infra/db/prisma/repository/user.repository'
 import { UserService } from '../../@core/service/user.service'
+import { logger } from '../../libs/logger'
 
 const router = express.Router()
 
@@ -25,6 +26,10 @@ router.post(
       .then((data) => res.status(201).json(data))
       .catch((error) => {
         const err = error as Error
+        logger.error({
+          service: 'User ROUTE POST',
+          message: error.message,
+        })
         return res.status(500).json({
           message: err.message,
           name: err.name,
@@ -44,6 +49,10 @@ router.patch('/:id', (req: Request, res: Response) => {
     })
     .catch((error) => {
       // console.log('route error', error)
+      logger.error({
+        service: 'User ROUTE PATCH',
+        message: error.message,
+      })
       const err = error as Error
       return res.status(500).json({ message: err.message, name: err.name })
     })
@@ -60,6 +69,10 @@ router.get('/', (req: Request, res: Response) => {
     .catch((error) => {
       // console.log('route error', error)
       const err = error as Error
+      logger.error({
+        service: 'User ROUTE GET ALL',
+        message: error.message,
+      })
       return res.status(500).json({
         message: err.message,
         name: err.name,
@@ -78,6 +91,10 @@ router.delete('/:id', authMiddleware, (req: Request, res: Response) => {
     .catch((error) => {
       // console.log('route error', error)
       const err = error as Error
+      logger.error({
+        service: 'User ROUTE DELETE BY ID',
+        message: error.message,
+      })
       return res.status(500).json({ message: err.message, name: err.name })
     })
 })
@@ -92,6 +109,10 @@ router.get('/:id', (req: Request, res: Response) => {
     .catch((error) => {
       // console.log('route error', error)
       const err = error as Error
+      logger.error({
+        service: 'User ROUTE GET BY ID',
+        message: error.message,
+      })
       return res.status(500).json({ message: err.message, name: err.name })
     })
 })
